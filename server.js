@@ -36,3 +36,55 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost/mong
 
 // CONTACTS API ROUTES BELOW HERE
 
+// Generic error handler which will be used by all of the endpoints.
+
+function handleError(res, reason, message, code) {
+	console.log("ERROR: " + reason);
+	res.status(code || 500).json({"error": message});
+}
+
+/*
+	"/contacts"
+	GET: find all contacts
+	POST: creates a new contact
+ */
+
+app.get('/contacts', (req, res) => {
+
+});
+
+app.post('/contacts', (req, res) => {
+	var newContact = req.body;
+	newContact.createDate = new Date();
+
+	if (!(req.body.firstName || req.body.lastName)) {
+		handleError(res, "Invalid User input", "Must provide a first or last name", 400);
+	}
+
+	db.collection(CONTACTS_COLLECTION).insertOne(newContact, (err, doc) => {
+		if (err) {
+			handleError(res, err.message, "Failed to create a new contact.");
+		} else {
+			res.status(201).json(doc.ops[0]);
+		}
+	});
+});
+
+/*
+	'/contacts/:id'
+	GET: find contact by id
+	PUT: update contact by id
+	DELETE: deletes contact by id
+ */
+
+app.get('/contacts/:id', (req, res) => {
+
+});
+
+app.put('/contacts/:id', (req, res) => {
+
+});
+
+app.delete('/contacts/:id', (req, res) => {
+
+});
