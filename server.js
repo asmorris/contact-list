@@ -19,6 +19,7 @@ var db;
 mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost/mongodb', function (err, database) {
 	if (err) {
 		console.log(err)
+		console.log("Hello")
 		process.exit(1)
 	}
 
