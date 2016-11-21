@@ -17,7 +17,7 @@ var db;
 
 // Connect to the db before starting the application server
 
-mongodb.MongoClient.connect('mongodb:andy:lakeview@ds159497.mlab.com:59497/heroku_3x2l72c1' || 'mongodb://localhost/mongodb', function (err, database) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost/mongodb', function (err, database) {
 	if (err) {
 		console.log(err)
 		console.log("Hello")
